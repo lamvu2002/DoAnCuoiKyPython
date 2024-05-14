@@ -75,9 +75,9 @@ DATABASES = {
     'default': {
         'NAME': 'QuanLyBanHang',
         'ENGINE': 'mssql',
-        'HOST': 'DESKTOP-JUDK6UG',
+        'HOST': 'MSI\MSSQLSERVER01',
         'USER': 'sa',
-        'PASSWORD': '123',
+        'PASSWORD': '02122002gb*',
         "PORT": "1433",
         "OPTIONS": {"driver": "ODBC Driver 17 for SQL Server"},
     }
