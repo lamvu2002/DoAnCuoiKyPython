@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Xóa Sản Phẩm</title>
+</head>
+<body>
+    <h1>Xóa Sản Phẩm</h1>
+    <p>Bạn có chắc chắn muốn xóa sản phẩm sau đây</p>
+    <p>Sản phẩm: {{ sanpham.masp }}, {{ sanpham.tensp }}, {{ sanpham.dvt }}, {{ sanpham.nuocsx }}, {{ sanpham.gia }}</p>
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit">Xóa</button>
+    </form>
+</body>
+</html>

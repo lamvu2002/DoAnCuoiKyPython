@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Set Customer Type</title>
+</head>
+<body>
+    <h1>Set Customer Type</h1>
+
+    <form action="{% url 'set_loai_khachhang' %}" method="post">
+        {% csrf_token %}
+        <button type="submit">Set Customer Type</button>
+    </form>
+</body>
+</html>

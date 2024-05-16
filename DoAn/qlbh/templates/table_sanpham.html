@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>San Pham</title>
+</head>
+<style>
+    table, th, td {
+      border: 1px solid;
+      border-collapse: collapse;
+    }
+    th, td {
+      background-color: #96D4D4;
+    }
+    /* Unvisited link */
+    a:link {
+      color: blue;
+    }
+
+    /* Visited link */
+    a:visited {
+      color: blue;
+    }
+
+    /* Mouse over link */
+    a:hover {
+      color: red;
+    }
+
+    /* Selected link */
+    a:active {
+      color: green;
+    }
+</style>
+<body>
+
+    <table>
+        <tr>
+            <th>Mã Sản Phẩm</th>
+            <th>Tên Sản Phẩm</th>
+            <th>Đơn vị tính</th>
+            <th>Nước Sản Xuất</th>
+            <th>Giá</th>
+            <th>Sửa / Xóa</th>
+        </tr>
+        {% for sp in ds_sp %}
+        <tr>
+            <td>{{ sp.masp }}</td>
+            <td>{{ sp.tensp }}</td>
+            <td>{{ sp.dvt }}</td>
+            <td>{{ sp.nuocsx }}</td>
+            <td>{{ sp.gia }}</td>
+            <td>
+                <a href="{% url 'edit_sanpham' sp.masp %}">Sửa</a>
+                <a href="{% url 'delete_sanpham' sp.masp %}">Xóa</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <a href="{% url 'add_sanpham' %}">Thêm</a>
+</body>
+</html>

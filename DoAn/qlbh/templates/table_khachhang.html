@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Khach Hang</title>
+</head>
+<style>
+    table, th, td {
+      border: 1px solid;
+      border-collapse: collapse;
+    }
+    th, td {
+      background-color: #96D4D4;
+    }
+    /* Unvisited link */
+    a:link {
+      color: blue;
+    }
+
+    /* Visited link */
+    a:visited {
+      color: blue;
+    }
+
+    /* Mouse over link */
+    a:hover {
+      color: red;
+    }
+
+    /* Selected link */
+    a:active {
+      color: green;
+    }
+</style>
+<body>
+
+    <table>
+        <tr>
+            <th>Mã Khách Hàng</th>
+            <th>Họ Tên</th>
+            <th>Địa chỉ</th>
+            <th>Số Điện Thoại</th>
+            <th>Ngày Sinh</th>
+            <th>Doanh Số</th>
+            <th>Ngày Đăng Ký</th>
+            <th>Loại Khách Hàng</th>
+            <th>Sửa / Xóa</th>
+        </tr>
+        {% for kh in ds_kh %}
+        <tr>
+            <td>{{ kh.makh }}</td>
+            <td>{{ kh.hoten }}</td>
+            <td>{{ kh.dchi }}</td>
+            <td>{{ kh.sodt }}</td>
+            <td>{{ kh.ngsinh }}</td>
+            <td>{{ kh.doanhso }}</td>
+            <td>{{ kh.ngdk }}</td>
+            <td>{{ kh.loaikh }}</td>
+            <td>
+                <a href="{% url 'edit_khachhang' kh.makh %}">Sửa</a>
+                <a href="{% url 'delete_khachhang' kh.makh %}">Xóa</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <a href="{% url 'add_khachhang' %}">Thêm</a>
+
+    <form action="{% url 'set_loai_khachhang' %}" method="post">
+        {% csrf_token %}
+        <button type="submit">Đặt loại khách hàng</button>
+    </form>
+</body>
+</html>
