@@ -1,6 +1,5 @@
 from django import forms
-from .models import Sanpham
-from .models import Khachhang
+from .models import Sanpham, Khachhang, Nhanvien
 
 
 class SanphamForm(forms.ModelForm):
@@ -28,4 +27,16 @@ class KhachhangForm(forms.ModelForm):
             'ngsinh': 'Ngày Sinh (yyyy-mm-dd)',
             'doanhso': 'Doanh Số',
             'ngdk': 'Ngày Đăng Ký (yyyy-mm-dd)',
+        }
+
+
+class NhanvienForm(forms.ModelForm):
+    class Meta:
+        model = Nhanvien
+        fields = '__all__'
+        labels = {
+            'manv': 'Mã Nhân Viên',
+            'hoten': 'Họ Tên',
+            'sodt': 'Số Điện Thoại',
+            'ngvl': 'Ngày Vào Làm (yyyy/mm/dd)',
         }

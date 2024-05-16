@@ -1,8 +1,9 @@
 from django.shortcuts import render
-from .models import Khachhang, Sanpham
+from .models import Khachhang, Sanpham, Nhanvien
 from django.shortcuts import render, get_object_or_404, redirect
-from .forms import SanphamForm, KhachhangForm
+from .forms import SanphamForm, KhachhangForm, NhanvienForm
 from django.utils import timezone
+
 
 # Create your views here.
 
@@ -134,3 +135,54 @@ def set_loai_khachhang(request):
         return redirect('khachhang')
 
     return render(request, 'set_loai_khachhang.html')
+
+
+def table_nhanvien(request):
+    ds_nv = Nhanvien.objects.all()
+    nv_list = []
+    for nv in ds_nv:
+        nv_dict = {
+            'manv': nv.manv,
+            'hoten': nv.hoten,
+            'sodt': nv.sodt,
+            'ngvl': nv.ngvl,
+        }
+        nv_list.append(nv_dict)
+
+    return render(request, 'table_nhanvien.html', {'ds_nv': nv_list})
+
+
+def edit_nhanvien(request, manv):
+    nhanvien = get_object_or_404(Nhanvien, manv=manv)
+
+    if request.method == 'POST':
+        form = NhanvienForm(request.POST, instance=nhanvien)
+        if form.is_valid():
+            form.save()
+            return redirect('nhanvien')
+    else:
+        form = NhanvienForm(instance=nhanvien)
+
+    return render(request, 'edit_nhanvien.html', {'form': form})
+
+
+def delete_nhanvien(request, manv):
+    nhanvien = get_object_or_404(Nhanvien, manv=manv)
+
+    if request.method == 'POST':
+        nhanvien.delete()
+        return redirect('nhanvien')
+
+    return render(request, 'delete_nhanvien.html', {'nhanvien': nhanvien})
+
+
+def add_nhanvien(request):
+    if request.method == 'POST':
+        form = NhanvienForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('nhanvien')
+    else:
+        form = NhanvienForm()
+
+    return render(request, 'add_nhanvien.html', {'form': form})

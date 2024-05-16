@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Xóa Nhân Viên</title>
+</head>
+<body>
+    <h1>Xóa Nhân Viên</h1>
+    <p>Bạn có chắc chắn muốn xóa nhân viên sau đây</p>
+    <p>Nhân Viên: {{ nhanvien.manv }}, {{ nhanvien.hoten }}, {{ nhanvien.sodt }}, {{ nhanvien.ngvl }}</p>
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit">Xóa</button>
+    </form>
+</body>
+</html>

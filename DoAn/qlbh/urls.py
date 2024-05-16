@@ -13,4 +13,9 @@ urlpatterns = [
     path('delete_khachhang/<str:makh>/', views.delete_khachhang, name='delete_khachhang'),
     path('add_khachhang/', views.add_khachhang, name='add_khachhang'),
     path('set_loai_khachhang/', views.set_loai_khachhang, name='set_loai_khachhang'),
+
+    path("nhanvien/", views.table_nhanvien, name="nhanvien"),
+    path('edit_nhanvien/<str:manv>/', views.edit_nhanvien, name='edit_nhanvien'),
+    path('delete_nhanvien/<str:manv>/', views.delete_nhanvien, name='delete_nhanvien'),
+    path('add_nhanvien/', views.add_nhanvien, name='add_nhanvien'),
 ]
