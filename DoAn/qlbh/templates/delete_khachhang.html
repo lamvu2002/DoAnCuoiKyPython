@@ -7,7 +7,7 @@
 <body>
     <h1>Xóa Khách Hàng</h1>
     <p>Bạn có chắc chắn muốn xóa khách hàng sau đây</p>
-    <p>Khách Hàng:  {{ khachhang.makh }}, {{ khachhang.hoten }}, {{ khachhang.dchi }}, {{ khachhang.sodt }},</p>
+    <p>Khách Hàng:  {{ khachhang.makh }}, {{ khachhang.hoten }}, {{ khachhang.dchi }}, {{ khachhang.sodt }}</p>
     <form method="POST">
         {% csrf_token %}
         <button type="submit">Xóa</button>

@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import F, Q
 
 
 class BaseModel(models.Model):
@@ -9,10 +10,10 @@ class BaseModel(models.Model):
 
 
 class Cthd(BaseModel):
-    sohd = models.OneToOneField('Hoadon', models.DO_NOTHING, db_column='SOHD',
-                                primary_key=True)  # Field name made lowercase. The composite primary key (SOHD, MASP) found, that is not supported. The first column is selected.
-    masp = models.ForeignKey('Sanpham', models.DO_NOTHING, db_column='MASP')  # Field name made lowercase.
-    sl = models.IntegerField(db_column='SL', blank=True, null=True)  # Field name made lowercase.
+    sohd = models.OneToOneField('Hoadon', models.DO_NOTHING, db_column='SOHD', primary_key=True)
+    masp = models.ForeignKey('Sanpham', models.DO_NOTHING, db_column='MASP')
+    sl = models.IntegerField(db_column='SL', blank=True, null=True)
+
 
     class Meta:
         managed = False

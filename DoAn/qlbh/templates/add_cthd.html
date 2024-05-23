@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Thêm Chi Tiết Hóa Đơn</title>
+</head>
+<body>
+    <h1>Thêm Chi Tiết Hóa Đơn</h1>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Thêm</button>
+    </form>
+</body>
+</html>

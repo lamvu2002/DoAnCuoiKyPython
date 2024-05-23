@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chi Tiet Hoa Don</title>
+</head>
+<style>
+    table, th, td {
+      border: 1px solid;
+      border-collapse: collapse;
+    }
+    th, td {
+      background-color: #96D4D4;
+    }
+    /* Unvisited link */
+    a:link {
+      color: blue;
+    }
+
+    /* Visited link */
+    a:visited {
+      color: blue;
+    }
+
+    /* Mouse over link */
+    a:hover {
+      color: red;
+    }
+
+    /* Selected link */
+    a:active {
+      color: green;
+    }
+</style>
+<body>
+
+    <table>
+        <tr>
+            <th>Số Hóa Đơn</th>
+            <th>Mã Sản Phẩm</th>
+            <th>Số Lượngn</th>
+            <th>Sửa / Xóa</th>
+        </tr>
+        {% for cthd in ds_cthd %}
+        <tr>
+            <td>{{ cthd.sohd.sohd }}</td>
+            <td>{{ cthd.masp.masp }}</td>
+            <td>{{ cthd.sl }}</td>
+            <td>
+                <a href="{% url 'edit_cthd' cthd.sohd.sohd cthd.masp.masp %}">Sửa</a>
+                <a href="{% url 'delete_cthd' cthd.sohd.sohd cthd.masp.masp %}">Xóa</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <a href="{% url 'add_cthd' %}">Thêm</a>
+</body>
+</html>

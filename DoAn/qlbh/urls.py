@@ -18,4 +18,14 @@ urlpatterns = [
     path('edit_nhanvien/<str:manv>/', views.edit_nhanvien, name='edit_nhanvien'),
     path('delete_nhanvien/<str:manv>/', views.delete_nhanvien, name='delete_nhanvien'),
     path('add_nhanvien/', views.add_nhanvien, name='add_nhanvien'),
+
+    path("hoadon/", views.table_hoadon, name="hoadon"),
+    path('edit_hoadon/<int:sohd>/', views.edit_hoadon, name='edit_hoadon'),
+    path('delete_hoadon/<int:sohd>/', views.delete_hoadon, name='delete_hoadon'),
+    path('add_hoadon/', views.add_hoadon, name='add_hoadon'),
+
+    path("cthd/", views.table_cthd, name="cthd"),
+    path('edit_cthd/<int:sohd>/<str:masp>/', views.edit_cthd, name='edit_cthd'),
+    path('delete_cthd/<int:sohd>/<str:masp>/', views.delete_cthd, name='delete_cthd'),
+    path('add_cthd/', views.add_cthd, name='add_cthd'),
 ]

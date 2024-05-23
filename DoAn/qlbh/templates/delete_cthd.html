@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Xóa Chi Tiết Hóa Đơn</title>
+</head>
+<body>
+    <h1>Xóa Chi Tiết Hóa Đơn</h1>
+    <p>Bạn có chắc chắn muốn xóa chi tiết hóa đơn sau đây</p>
+    <p>Chi Tiết Hóa Đơn: {{ cthd.sohd.sohd }}, {{ cthd.masp.masp }}, {{ cthd.sl }}</p>
+    <form method="POST">
+        {% csrf_token %}
+        <button type="submit">Xóa</button>
+    </form>
+</body>
+</html>

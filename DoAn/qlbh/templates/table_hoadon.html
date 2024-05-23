@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Hoa Don</title>
+</head>
+<style>
+    table, th, td {
+      border: 1px solid;
+      border-collapse: collapse;
+    }
+    th, td {
+      background-color: #96D4D4;
+    }
+    /* Unvisited link */
+    a:link {
+      color: blue;
+    }
+
+    /* Visited link */
+    a:visited {
+      color: blue;
+    }
+
+    /* Mouse over link */
+    a:hover {
+      color: red;
+    }
+
+    /* Selected link */
+    a:active {
+      color: green;
+    }
+</style>
+<body>
+
+    <table>
+        <tr>
+            <th>Số Hóa Đơn</th>
+            <th>Ngày Hóa Đơn</th>
+            <th>Mã Khách Hàng</th>
+            <th>Mã Nhân Viên</th>
+            <th>Trị Giá</th>
+            <th>Sửa / Xóa</th>
+        </tr>
+        {% for hd in ds_hd %}
+        <tr>
+            <td>{{ hd.sohd }}</td>
+            <td>{{ hd.nghd }}</td>
+            <td>{{ hd.makh.makh }}</td>
+            <td>{{ hd.manv.manv }}</td>
+            <td>{{ hd.trigia }}</td>
+            <td>
+                <a href="{% url 'edit_hoadon' hd.sohd %}">Sửa</a>
+                <a href="{% url 'delete_hoadon' hd.sohd %}">Xóa</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    <a href="{% url 'add_hoadon' %}">Thêm</a>
+</body>
+</html>
