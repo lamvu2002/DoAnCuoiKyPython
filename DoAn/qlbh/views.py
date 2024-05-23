@@ -8,7 +8,6 @@ from django.utils import timezone
 
 
 # Create your views here.
-
 def index(request):
     return render(request, 'index.html')
 
@@ -27,6 +26,21 @@ def table_sanpham(request):
         sp_list.append(sp_dict)
 
     return render(request, 'table_sanpham.html', {'ds_sp': sp_list})
+
+
+def edit_hoadon(request, sohd):
+    hoadon = get_object_or_404(Hoadon, sohd=sohd)
+
+    if request.method == 'POST':
+        form = HoadonEditForm(request.POST, instance=hoadon)
+        if form.is_valid():
+            #form.save()
+            Hoadon.objects.filter(sohd=sohd).update(**form.cleaned_data)
+            return redirect('hoadon')
+    else:
+        form = HoadonEditForm(instance=hoadon)
+
+    return render(request, 'edit_hoadon.html', {'form': form})
 
 
 def edit_sanpham(request, masp):
@@ -205,19 +219,6 @@ def table_hoadon(request):
 
     return render(request, 'table_hoadon.html', {'ds_hd': hd_list})
 
-
-def edit_hoadon(request, sohd):
-    hoadon = get_object_or_404(Hoadon, sohd=sohd)
-
-    if request.method == 'POST':
-        form = HoadonEditForm(request.POST, instance=hoadon)
-        if form.is_valid():
-            form.save()
-            return redirect('hoadon')
-    else:
-        form = HoadonEditForm(instance=hoadon)
-
-    return render(request, 'edit_hoadon.html', {'form': form})
 
 
 def delete_hoadon(request, sohd):
