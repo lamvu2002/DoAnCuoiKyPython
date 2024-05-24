@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Hoa Don</title>
+    <title>Chi Tiet Hoa Don</title>
 </head>
 <style>
     table, th, td {
@@ -37,26 +37,24 @@
     <table>
         <tr>
             <th>Số Hóa Đơn</th>
-            <th>Ngày Hóa Đơn</th>
-            <th>Mã Khách Hàng</th>
-            <th>Mã Nhân Viên</th>
-            <th>Trị Giá</th>
+            <th>Mã Sản Phẩm</th>
+            <th>Số Lượngn</th>
             <th>Sửa / Xóa</th>
         </tr>
-        {% for hd in ds_hd %}
+        {% for cthd in ds_cthd %}
         <tr>
-            <td>{{ hd.sohd }}</td>
-            <td>{{ hd.nghd }}</td>
-            <td>{{ hd.makh.makh }}</td>
-            <td>{{ hd.manv.manv }}</td>
-            <td>{{ hd.trigia }}</td>
+            <td>{{ cthd.sohd.sohd }}</td>
+            <td>{{ cthd.masp.masp }}</td>
+            <td>{{ cthd.sl }}</td>
             <td>
-                <a href="{% url 'edit_hoadon' hd.sohd %}">Sửa</a>
-                <a href="{% url 'delete_hoadon' hd.sohd %}">Xóa</a>
+                <a href="{% url 'edit_cthd' cthd.sohd.sohd cthd.masp.masp %}">Sửa</a>
+                <a href="{% url 'delete_cthd' cthd.sohd.sohd cthd.masp.masp %}">Xóa</a>
             </td>
         </tr>
         {% endfor %}
     </table>
-    <a href="{% url 'add_hoadon' %}">Thêm</a>
+    <a href="{% url 'add_cthd' %}">Thêm</a>
+    <br>
+    <a href="/">Trở về trang chính</a>
 </body>
 </html>

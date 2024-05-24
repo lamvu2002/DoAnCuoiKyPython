@@ -1,4 +1,4 @@
 from django.contrib import admin
-from .models import Nhanvien
+from .models import AuthUser
 # Register your models here.
-admin.site.register(Nhanvien)
+admin.site.register(AuthUser)

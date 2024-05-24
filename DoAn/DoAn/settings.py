@@ -30,6 +30,11 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     "qlbh.apps.QlbhConfig",
+    "khachhang.apps.KhachhangConfig",
+    "sanpham.apps.SanphamConfig",
+    "nhanvien.apps.NhanvienConfig",
+    "hoadon.apps.HoadonConfig",
+    "cthd.apps.CthdConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
