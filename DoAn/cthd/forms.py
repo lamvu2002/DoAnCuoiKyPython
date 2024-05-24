@@ -22,8 +22,8 @@ class CthdEditForm(forms.ModelForm):
     class Meta:
         model = Cthd
         fields = '__all__'
-        exclude = ['sohd']
         labels = {
+            'sohd': 'Số Hóa Đơn',
             'masp': 'Mã Sản Phẩm',
             'sl': 'Số Lượng'
         }

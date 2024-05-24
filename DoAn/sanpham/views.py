@@ -1,10 +1,52 @@
 from .models import Sanpham
 from django.shortcuts import render, get_object_or_404, redirect
 from .forms import SanphamForm, SanphamEditForm
+from django.db.models import Q
+
+
+from django.db.models import Q
+
+
+from django.db.models import Q
 
 
 def table_sanpham(request):
-    ds_sp = Sanpham.objects.all()
+    query = request.GET.get('q')
+    if query:
+        if query.startswith('>='):
+            try:
+                value = float(query[2:])
+                ds_sp = Sanpham.objects.filter(gia__gte=value)
+            except ValueError:
+                ds_sp = Sanpham.objects.none()
+        elif query.startswith('>'):
+            try:
+                value = float(query[1:])
+                ds_sp = Sanpham.objects.filter(gia__gt=value)
+            except ValueError:
+                ds_sp = Sanpham.objects.none()
+        elif query.startswith('<='):
+            try:
+                value = float(query[2:])
+                ds_sp = Sanpham.objects.filter(gia__lte=value)
+            except ValueError:
+                ds_sp = Sanpham.objects.none()
+        elif query.startswith('<'):
+            try:
+                value = float(query[1:])
+                ds_sp = Sanpham.objects.filter(gia__lt=value)
+            except ValueError:
+                ds_sp = Sanpham.objects.none()
+        else:
+            ds_sp = Sanpham.objects.filter(
+                Q(masp__icontains=query) |
+                Q(tensp__icontains=query) |
+                Q(dvt__icontains=query) |
+                Q(nuocsx__icontains=query)
+            )
+    else:
+        ds_sp = Sanpham.objects.all()
+
     sp_list = []
     for sp in ds_sp:
         sp_dict = {
@@ -16,7 +58,7 @@ def table_sanpham(request):
         }
         sp_list.append(sp_dict)
 
-    return render(request, 'table_sanpham.html', {'ds_sp': sp_list})
+    return render(request, 'table_sanpham.html', {'ds_sp': sp_list, 'query': query})
 
 
 def edit_sanpham(request, masp):
