@@ -4,12 +4,6 @@ from .forms import SanphamForm, SanphamEditForm
 from django.db.models import Q
 
 
-from django.db.models import Q
-
-
-from django.db.models import Q
-
-
 def table_sanpham(request):
     query = request.GET.get('q')
     if query:

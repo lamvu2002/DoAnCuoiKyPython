@@ -1,12 +1,20 @@
 from .models import Nhanvien
 from django.shortcuts import render, get_object_or_404, redirect
 from .forms import NhanvienForm, NhanvienEditForm
-
+from django.db.models import Q
 
 # Create your views here.
 
+
 def table_nhanvien(request):
-    ds_nv = Nhanvien.objects.all()
+    query = request.GET.get('q', '')
+    ds_nv = Nhanvien.objects.filter(
+        Q(manv__icontains=query) |
+        Q(hoten__icontains=query) |
+        Q(sodt__icontains=query) |
+        Q(ngvl__icontains=query)
+    )
+
     nv_list = []
     for nv in ds_nv:
         nv_dict = {
@@ -17,7 +25,7 @@ def table_nhanvien(request):
         }
         nv_list.append(nv_dict)
 
-    return render(request, 'table_nhanvien.html', {'ds_nv': nv_list})
+    return render(request, 'table_nhanvien.html', {'ds_nv': nv_list, 'query': query})
 
 
 def edit_nhanvien(request, manv):

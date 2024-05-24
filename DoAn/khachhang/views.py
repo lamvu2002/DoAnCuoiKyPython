@@ -1,13 +1,48 @@
-from django.urls import reverse
-
-from .models import Khachhang
+from .models import Khachhang, Hoadon, Cthd
 from django.shortcuts import render, get_object_or_404, redirect
 from .forms import KhachhangForm, KhachhangEditForm
 from django.utils import timezone
+from django.db.models import Q
 
 
 def table_khachhang(request):
-    ds_kh = Khachhang.objects.all()
+    query = request.GET.get('q')
+    if query:
+        if query.startswith('>='):
+            try:
+                value = float(query[2:])
+                ds_kh = Khachhang.objects.filter(doanhso__gte=value)
+            except ValueError:
+                ds_kh = Khachhang.objects.none()
+        elif query.startswith('>'):
+            try:
+                value = float(query[1:])
+                ds_kh = Khachhang.objects.filter(doanhso__gt=value)
+            except ValueError:
+                ds_kh = Khachhang.objects.none()
+        elif query.startswith('<='):
+            try:
+                value = float(query[2:])
+                ds_kh = Khachhang.objects.filter(doanhso__lte=value)
+            except ValueError:
+                ds_kh = Khachhang.objects.none()
+        elif query.startswith('<'):
+            try:
+                value = float(query[1:])
+                ds_kh = Khachhang.objects.filter(doanhso__lt=value)
+            except ValueError:
+                ds_kh = Khachhang.objects.none()
+        else:
+            ds_kh = Khachhang.objects.filter(
+                Q(makh__icontains=query) |
+                Q(hoten__icontains=query) |
+                Q(dchi__icontains=query) |
+                Q(sodt__icontains=query) |
+                Q(loaikh__icontains=query)
+            )
+    else:
+        ds_kh = Khachhang.objects.all()
+
     kh_list = []
     for kh in ds_kh:
         kh_dict = {
@@ -22,7 +57,7 @@ def table_khachhang(request):
         }
         kh_list.append(kh_dict)
 
-    return render(request, 'table_khachhang.html', {'ds_kh': kh_list})
+    return render(request, 'table_khachhang.html', {'ds_kh': kh_list, 'query': query})
 
 
 def edit_khachhang(request, makh):
@@ -64,7 +99,25 @@ def add_khachhang(request):
 def set_loai_khachhang(request):
     if request.method == 'POST':
         khachhangs = Khachhang.objects.all()
+        
         for khachhang in khachhangs:
+            doanh_so = 0
+            hoadons = Hoadon.objects.filter(makh=khachhang.makh)
+            for hoadon in hoadons:
+                cthds = Cthd.objects.filter(sohd=hoadon.sohd)
+
+                total_trigia = 0
+                for cthd in cthds:
+                    cthd_trigia = cthd.sl * cthd.masp.gia
+                    total_trigia += cthd_trigia
+
+                hoadon.trigia = total_trigia
+                doanh_so += total_trigia
+                Hoadon.objects.filter(sohd=hoadon.sohd).update(trigia=total_trigia)
+
+            khachhang.doanhso = doanh_so
+            khachhang.save()
+
             if (khachhang.ngdk < timezone.datetime(2007, 1, 1,
                                                    tzinfo=khachhang.ngdk.tzinfo) and khachhang.doanhso >= 10000000) or (
                     khachhang.ngdk > timezone.datetime(2007, 1, 1,

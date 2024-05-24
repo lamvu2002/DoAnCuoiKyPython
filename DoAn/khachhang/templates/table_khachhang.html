@@ -33,7 +33,10 @@
     }
 </style>
 <body>
-
+    <form action="{% url 'khachhang' %}" method="GET">
+        <input type="text" name="q" placeholder="Search..." value="{% if query %}{{ query }}{% endif %}">
+        <button type="submit">Search</button>
+    </form>
     <table>
         <tr>
             <th>Mã Khách Hàng</th>
