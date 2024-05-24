@@ -11,7 +11,7 @@ class BaseModel(models.Model):
 
 class Cthd(BaseModel):
     sohd = models.OneToOneField('Hoadon', models.DO_NOTHING, db_column='SOHD', primary_key=True)
-    masp = models.ForeignKey('Sanpham', models.DO_NOTHING, db_column='MASP')
+    masp = models.ForeignKey('Sanpham', models.DO_NOTHING, db_column='MASP', primary_key=True)
     sl = models.IntegerField(db_column='SL', blank=True, null=True)
 
 
