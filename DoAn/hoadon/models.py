@@ -23,6 +23,7 @@ class Hoadon(BaseModel):
         managed = False
         db_table = 'HOADON'
 
+
 class Khachhang(BaseModel):
     makh = models.CharField(db_column='MAKH', primary_key=True, max_length=4,
                             db_collation='Vietnamese_CI_AS')  # Field name made lowercase.

@@ -33,10 +33,12 @@
     }
 </style>
 <body>
+    <h2>Tìm kiếm</h2>
     <form action="{% url 'nhanvien' %}" method="GET">
         <input type="text" name="q" placeholder="Search..." value="{% if query %}{{ query }}{% endif %}">
         <button type="submit">Search</button>
     </form>
+    <h2>Thông tin</h2>
     <table>
         <tr>
             <th>Mã Nhân Viên</th>
@@ -58,6 +60,7 @@
         </tr>
         {% endfor %}
     </table>
+    <br>
     <a href="{% url 'add_nhanvien' %}">Thêm</a>
     <br>
     <a href="/">Trở về trang chính</a>
