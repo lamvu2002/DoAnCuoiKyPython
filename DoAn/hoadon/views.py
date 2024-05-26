@@ -68,7 +68,6 @@ def edit_hoadon(request, sohd):
     if request.method == 'POST':
         form = HoadonEditForm(request.POST, instance=hoadon)
         if form.is_valid():
-            #form.save()
             Hoadon.objects.filter(sohd=sohd).update(**form.cleaned_data)
             return redirect('hoadon')
     else:
