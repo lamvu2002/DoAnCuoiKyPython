@@ -122,10 +122,10 @@ def set_loai_khachhang(request):
                                                    tzinfo=khachhang.ngdk.tzinfo) and khachhang.doanhso >= 10000000) or (
                     khachhang.ngdk > timezone.datetime(2007, 1, 1,
                                                        tzinfo=khachhang.ngdk.tzinfo) and khachhang.doanhso >= 2000000):
-                khachhang.loaikh = 'Vip'
+                khachhang.loaikh = 'VIP'
                 khachhang.save()
             else:
-                khachhang.loaikh = 'Regular'
+                khachhang.loaikh = 'THUONG'
                 khachhang.save()
 
         return redirect('khachhang')
