@@ -29,7 +29,12 @@ class HoadonForm(forms.ModelForm):
 
 
 class HoadonEditForm(forms.ModelForm):
-    makh = forms.ModelChoiceField(queryset=Khachhang.objects.all(), empty_label=None, label='Mã Khách Hàng')
+    makh = forms.ModelChoiceField(
+        queryset=Khachhang.objects.all().order_by('makh'),
+        empty_label='None',
+        label='Mã Khách Hàng',
+        required=False,
+    )
     manv = forms.ModelChoiceField(queryset=Nhanvien.objects.all(), empty_label=None, label='Mã Nhân Viên')
 
     def __init__(self, *args, **kwargs):

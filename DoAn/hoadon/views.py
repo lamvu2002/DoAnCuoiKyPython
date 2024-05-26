@@ -4,6 +4,7 @@ from .forms import HoadonForm, HoadonEditForm
 from django.db.models import Q
 from django.utils.timezone import localtime
 
+
 # Create your views here.
 def index(request):
     return render(request, 'index.html')
