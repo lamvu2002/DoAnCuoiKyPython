@@ -3,6 +3,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .forms import KhachhangForm, KhachhangEditForm
 from django.utils import timezone
 from django.db.models import Q
+from django.utils.timezone import localtime
 
 
 def table_khachhang(request):
@@ -45,14 +46,16 @@ def table_khachhang(request):
 
     kh_list = []
     for kh in ds_kh:
+        local_ngsinh = localtime(kh.ngsinh)
+        local_ngdk = localtime(kh.ngdk)
         kh_dict = {
             'makh': kh.makh,
             'hoten': kh.hoten,
             'dchi': kh.dchi,
             'sodt': kh.sodt,
-            'ngsinh': kh.ngsinh.strftime("%d/%m/%Y, %H:%M:%S"),
+            'ngsinh': local_ngsinh.strftime("%d/%m/%Y, %H:%M:%S"),
             'doanhso': kh.doanhso,
-            'ngdk': kh.ngdk.strftime("%d/%m/%Y, %H:%M:%S"),
+            'ngdk': local_ngdk.strftime("%d/%m/%Y, %H:%M:%S"),
             'loaikh': kh.loaikh,
         }
         kh_list.append(kh_dict)

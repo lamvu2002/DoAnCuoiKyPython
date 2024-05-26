@@ -2,6 +2,7 @@ from .models import Nhanvien
 from django.shortcuts import render, get_object_or_404, redirect
 from .forms import NhanvienForm, NhanvienEditForm
 from django.db.models import Q
+from django.utils.timezone import localtime
 
 # Create your views here.
 
@@ -17,11 +18,12 @@ def table_nhanvien(request):
 
     nv_list = []
     for nv in ds_nv:
+        local_ngvl = localtime(nv.ngvl)
         nv_dict = {
             'manv': nv.manv,
             'hoten': nv.hoten,
             'sodt': nv.sodt,
-            'ngvl': nv.ngvl.strftime("%d/%m/%Y, %H:%M:%S"),
+            'ngvl': local_ngvl.strftime("%d/%m/%Y, %H:%M:%S"),
         }
         nv_list.append(nv_dict)
 

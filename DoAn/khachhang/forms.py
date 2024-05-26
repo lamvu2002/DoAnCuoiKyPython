@@ -7,7 +7,7 @@ class KhachhangForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['ngdk'].initial = timezone.now()
-
+        self.fields['ngdk'].widget.attrs['readonly'] = True
     class Meta:
         model = Khachhang
         fields = '__all__'
@@ -27,6 +27,8 @@ class KhachhangEditForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['ngdk'].initial = timezone.now()
+        self.fields['ngdk'].widget.attrs['readonly'] = True
+
 
     class Meta:
         model = Khachhang

@@ -2,7 +2,7 @@ from .models import Hoadon, Cthd, Sanpham
 from django.shortcuts import render, get_object_or_404, redirect
 from .forms import HoadonForm, HoadonEditForm
 from django.db.models import Q
-
+from django.utils.timezone import localtime
 
 # Create your views here.
 def index(request):
@@ -48,9 +48,10 @@ def table_hoadon(request):
         ds_hd = Hoadon.objects.all()
     hd_list = []
     for hd in ds_hd:
+        local_nghd = localtime(hd.nghd)
         hd_dict = {
             'sohd': hd.sohd,
-            'nghd': hd.nghd.strftime("%d/%m/%Y, %H:%M:%S"),
+            'nghd': local_nghd.strftime("%d/%m/%Y, %H:%M:%S"),
             'makh': hd.makh,
             'manv': hd.manv,
             'trigia': hd.trigia,

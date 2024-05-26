@@ -84,7 +84,8 @@ DATABASES = {
         'USER': 'sa',
         'PASSWORD': '123',
         "PORT": "1433",
-        "OPTIONS": {"driver": "ODBC Driver 17 for SQL Server"},
+        'TIMEZONE': 'Asia/Ho_Chi_Minh',
+        "OPTIONS": {"driver": "ODBC Driver 17 for SQL Server", 'TIMEZONE': 'Asia/Ho_Chi_Minh'},
     }
 }
 
@@ -111,7 +112,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = "Asia/Bangkok"
+TIME_ZONE = "Asia/Ho_Chi_Minh"
 
 USE_I18N = True
 

@@ -15,6 +15,7 @@ class HoadonForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['nghd'].initial = timezone.now()
+        self.fields['nghd'].widget.attrs['readonly'] = True
 
     class Meta:
         model = Hoadon
@@ -34,7 +35,7 @@ class HoadonEditForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['nghd'].initial = timezone.now()
-
+        self.fields['nghd'].widget.attrs['readonly'] = True
     class Meta:
         model = Hoadon
         fields = '__all__'

@@ -7,7 +7,7 @@
 <body>
     <h1>Xóa Hóa Đơn</h1>
     <p>Bạn có chắc chắn muốn xóa hóa đơn sau đây</p>
-    <p>Hóa Đơn:  {{ hoadon.sohd }}, {{ hoadon.nghd }}, {{ hoadon.makh.makh }}, {{ hoadon.manv.manv }}, {{ hoadon.trigia }}</p>
+    <p>Hóa Đơn:  {{ hoadon.sohd }}, {{ hoadon.nghd }}, {% if hoadon.makh.makh %}{{ hoadon.makh.makh }}{% else %}N/A{% endif %}, {{ hoadon.manv.manv }}, {{ hoadon.trigia }}</p>
     <form method="POST">
         {% csrf_token %}
         <button type="submit">Xóa</button>
