@@ -1,8 +1,13 @@
 from django import forms
 from .models import Khachhang
+from django.utils import timezone
 
 
 class KhachhangForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['ngdk'].initial = timezone.now()
+
     class Meta:
         model = Khachhang
         fields = '__all__'
@@ -19,6 +24,10 @@ class KhachhangForm(forms.ModelForm):
 
 
 class KhachhangEditForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['ngdk'].initial = timezone.now()
+
     class Meta:
         model = Khachhang
         fields = '__all__'

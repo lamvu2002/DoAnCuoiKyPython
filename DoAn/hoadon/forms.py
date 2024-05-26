@@ -15,7 +15,6 @@ class HoadonForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['nghd'].initial = timezone.now()
-        self.fields['trigia'].initial = 0
 
     class Meta:
         model = Hoadon
@@ -35,7 +34,6 @@ class HoadonEditForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['nghd'].initial = timezone.now()
-        self.fields['trigia'].initial = 0
 
     class Meta:
         model = Hoadon
