@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Nhan Vien</title>
+    <title>Nhân Viên</title>
 </head>
 <style>
     table, th, td {
@@ -35,7 +35,7 @@
 <body>
     <h2>Tìm kiếm</h2>
     <form action="{% url 'nhanvien' %}" method="GET">
-        <input type="text" name="q" placeholder="Search..." value="{% if query %}{{ query }}{% endif %}">
+        <input type="text" name="q" placeholder="Tìm..." value="{% if query %}{{ query }}{% endif %}">
         <button type="submit">Search</button>
     </form>
     <h2>Thông tin</h2>

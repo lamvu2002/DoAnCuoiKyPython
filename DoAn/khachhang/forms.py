@@ -6,7 +6,7 @@ class KhachhangForm(forms.ModelForm):
     class Meta:
         model = Khachhang
         fields = '__all__'
-        exclude = ['loaikh']
+        exclude = ['loaikh', 'doanhso']
         labels = {
             'makh': 'Mã Khách Hàng',
             'hoten': 'Họ Tên',
@@ -22,7 +22,7 @@ class KhachhangEditForm(forms.ModelForm):
     class Meta:
         model = Khachhang
         fields = '__all__'
-        exclude = ['loaikh', 'makh']
+        exclude = ['loaikh', 'makh', 'doanhso']
         labels = {
             'makh': 'Mã Khách Hàng',
             'hoten': 'Họ Tên',

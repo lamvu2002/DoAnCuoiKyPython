@@ -21,7 +21,7 @@ def table_nhanvien(request):
             'manv': nv.manv,
             'hoten': nv.hoten,
             'sodt': nv.sodt,
-            'ngvl': nv.ngvl,
+            'ngvl': nv.ngvl.strftime("%m/%d/%Y, %H:%M:%S"),
         }
         nv_list.append(nv_dict)
 

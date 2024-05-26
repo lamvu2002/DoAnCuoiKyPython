@@ -50,9 +50,9 @@ def table_khachhang(request):
             'hoten': kh.hoten,
             'dchi': kh.dchi,
             'sodt': kh.sodt,
-            'ngsinh': kh.ngsinh,
+            'ngsinh': kh.ngsinh.strftime("%m/%d/%Y, %H:%M:%S"),
             'doanhso': kh.doanhso,
-            'ngdk': kh.ngdk,
+            'ngdk': kh.ngdk.strftime("%m/%d/%Y, %H:%M:%S"),
             'loaikh': kh.loaikh,
         }
         kh_list.append(kh_dict)

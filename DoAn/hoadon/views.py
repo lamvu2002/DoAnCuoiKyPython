@@ -50,7 +50,7 @@ def table_hoadon(request):
     for hd in ds_hd:
         hd_dict = {
             'sohd': hd.sohd,
-            'nghd': hd.nghd,
+            'nghd': hd.nghd.strftime("%m/%d/%Y, %H:%M:%S"),
             'makh': hd.makh,
             'manv': hd.manv,
             'trigia': hd.trigia,
