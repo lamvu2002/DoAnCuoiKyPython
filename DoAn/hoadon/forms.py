@@ -20,6 +20,7 @@ class HoadonForm(forms.ModelForm):
     class Meta:
         model = Hoadon
         fields = '__all__'
+        exclude = ['trigia']
         labels = {
             'sohd': 'Số Hóa Đơn',
             'nghd': 'Ngày Hóa Đơn',
@@ -39,7 +40,7 @@ class HoadonEditForm(forms.ModelForm):
     class Meta:
         model = Hoadon
         fields = '__all__'
-        exclude = ['sohd']
+        exclude = ['sohd', 'trigia']
         labels = {
             'sohd': 'Số Hóa Đơn',
             'nghd': 'Ngày Hóa Đơn',
