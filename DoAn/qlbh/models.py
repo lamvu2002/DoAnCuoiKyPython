@@ -1,5 +1,4 @@
 from django.db import models
-from django.db.models import F, Q
 
 
 class BaseModel(models.Model):
@@ -13,7 +12,6 @@ class Cthd(BaseModel):
     sohd = models.ForeignKey('Hoadon', models.DO_NOTHING, db_column='SOHD')
     masp = models.ForeignKey('Sanpham', models.DO_NOTHING, db_column='MASP')
     sl = models.IntegerField(db_column='SL', blank=True, null=True)
-
 
     class Meta:
         managed = False
