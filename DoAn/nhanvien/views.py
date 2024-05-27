@@ -4,8 +4,6 @@ from .forms import NhanvienForm, NhanvienEditForm
 from django.db.models import Q
 from django.utils.timezone import localtime
 
-# Create your views here.
-
 
 def table_nhanvien(request):
     query = request.GET.get('q', '')

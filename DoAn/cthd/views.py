@@ -6,8 +6,6 @@ from .forms import CthdEditForm, CthdForm
 from django.db.models import Q
 
 
-# Create your views here.
-
 def table_cthd(request):
     query = request.GET.get('q')
     if query:

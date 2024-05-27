@@ -11,15 +11,15 @@ class BaseModel(models.Model):
 
 class Sanpham(BaseModel):
     masp = models.CharField(db_column='MASP', primary_key=True, max_length=4,
-                            db_collation='Vietnamese_CI_AS')  # Field name made lowercase.
+                            db_collation='Vietnamese_CI_AS')
     tensp = models.CharField(db_column='TENSP', max_length=40, db_collation='Vietnamese_CI_AS', blank=True,
-                             null=True)  # Field name made lowercase.
+                             null=True)
     dvt = models.CharField(db_column='DVT', max_length=20, db_collation='Vietnamese_CI_AS', blank=True,
-                           null=True)  # Field name made lowercase.
+                           null=True)
     nuocsx = models.CharField(db_column='NUOCSX', max_length=40, db_collation='Vietnamese_CI_AS', blank=True,
-                              null=True)  # Field name made lowercase.
+                              null=True)
     gia = models.DecimalField(db_column='GIA', max_digits=19, decimal_places=4, blank=True,
-                              null=True)  # Field name made lowercase.
+                              null=True)
 
     class Meta:
         managed = False
