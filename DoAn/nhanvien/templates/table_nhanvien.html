@@ -64,5 +64,9 @@
     <a href="{% url 'add_nhanvien' %}">Thêm</a>
     <br>
     <a href="/">Trở về trang chính</a>
+    {% if request.user.is_authenticated %}
+    <br>
+    <button onclick="window.location.href='{% url 'logout' %}'">Đăng xuất</button>
+    {% endif %}
 </body>
 </html>

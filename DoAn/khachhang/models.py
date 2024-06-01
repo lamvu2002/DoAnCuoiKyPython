@@ -24,6 +24,10 @@ class Khachhang(BaseModel):
     loaikh = models.CharField(db_column='LOAIKH', max_length=20, db_collation='Vietnamese_CI_AS', blank=True,
                               null=True)
 
+    def __str__(self):
+        return f"Mã Khách Hàng: {self.makh}, Họ Tên: {self.hoten}, Địa Chỉ: {self.dchi}, Số Điện Thoại: {self.sodt}\
+        , Ngày Sinh: {self.ngsinh}, Doanh Số: {self.doanhso}, Ngày Đăng Ký: {self.ngdk}, Loại Khách Hàng: {self.loaikh}"
+
     class Meta:
         managed = False
         db_table = 'KHACHHANG'

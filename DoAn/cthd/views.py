@@ -4,6 +4,14 @@ from .models import Cthd
 from django.shortcuts import render, get_object_or_404, redirect
 from .forms import CthdEditForm, CthdForm
 from django.db.models import Q
+from django.urls import reverse_lazy
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout
+
+
+def logout_view(request):
+    logout(request)
+    return redirect('/')
 
 
 def table_cthd(request):
@@ -55,6 +63,7 @@ def table_cthd(request):
     return render(request, 'table_cthd.html', {'ds_cthd': cthd_list})
 
 
+@login_required(login_url=reverse_lazy('admin:login'))
 def edit_cthd(request, sohd, masp):
     cthd = get_object_or_404(Cthd, sohd=sohd, masp=masp)
 
@@ -69,6 +78,7 @@ def edit_cthd(request, sohd, masp):
     return render(request, 'edit_cthd.html', {'form': form})
 
 
+@login_required(login_url=reverse_lazy('admin:login'))
 def delete_cthd(request, sohd, masp):
     cthd = get_object_or_404(Cthd, sohd=sohd, masp=masp)
 
@@ -79,6 +89,7 @@ def delete_cthd(request, sohd, masp):
     return render(request, 'delete_cthd.html', {'cthd': cthd})
 
 
+@login_required(login_url=reverse_lazy('admin:login'))
 def add_cthd(request):
     if request.method == 'POST':
         form = CthdForm(request.POST)

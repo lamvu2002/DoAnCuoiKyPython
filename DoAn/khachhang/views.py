@@ -4,6 +4,14 @@ from .forms import KhachhangForm, KhachhangEditForm
 from django.utils import timezone
 from django.db.models import Q
 from django.utils.timezone import localtime
+from django.urls import reverse_lazy
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout
+
+
+def logout_view(request):
+    logout(request)
+    return redirect('/')
 
 
 def table_khachhang(request):
@@ -63,6 +71,7 @@ def table_khachhang(request):
     return render(request, 'table_khachhang.html', {'ds_kh': kh_list, 'query': query})
 
 
+@login_required(login_url=reverse_lazy('admin:login'))
 def edit_khachhang(request, makh):
     khachhang = get_object_or_404(Khachhang, makh=makh)
 
@@ -77,6 +86,7 @@ def edit_khachhang(request, makh):
     return render(request, 'edit_khachhang.html', {'form': form})
 
 
+@login_required(login_url=reverse_lazy('admin:login'))
 def delete_khachhang(request, makh):
     khachhang = get_object_or_404(Khachhang, makh=makh)
 
@@ -87,6 +97,7 @@ def delete_khachhang(request, makh):
     return render(request, 'delete_khachhang.html', {'khachhang': khachhang})
 
 
+@login_required(login_url=reverse_lazy('admin:login'))
 def add_khachhang(request):
     if request.method == 'POST':
         form = KhachhangForm(request.POST)
@@ -99,6 +110,7 @@ def add_khachhang(request):
     return render(request, 'add_khachhang.html', {'form': form})
 
 
+@login_required(login_url=reverse_lazy('admin:login'))
 def set_loai_khachhang(request):
     if request.method == 'POST':
         khachhangs = Khachhang.objects.all()

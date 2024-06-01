@@ -2,6 +2,14 @@ from .models import Sanpham
 from django.shortcuts import render, get_object_or_404, redirect
 from .forms import SanphamForm, SanphamEditForm
 from django.db.models import Q
+from django.urls import reverse_lazy
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout
+
+
+def logout_view(request):
+    logout(request)
+    return redirect('/')
 
 
 def table_sanpham(request):
@@ -55,6 +63,7 @@ def table_sanpham(request):
     return render(request, 'table_sanpham.html', {'ds_sp': sp_list, 'query': query})
 
 
+@login_required(login_url=reverse_lazy('admin:login'))
 def edit_sanpham(request, masp):
     sanpham = get_object_or_404(Sanpham, masp=masp)
 
@@ -69,6 +78,7 @@ def edit_sanpham(request, masp):
     return render(request, 'edit_sanpham.html', {'form': form})
 
 
+@login_required(login_url=reverse_lazy('admin:login'))
 def delete_sanpham(request, masp):
     sanpham = get_object_or_404(Sanpham, masp=masp)
 
@@ -79,6 +89,7 @@ def delete_sanpham(request, masp):
     return render(request, 'delete_sanpham.html', {'sanpham': sanpham})
 
 
+@login_required(login_url=reverse_lazy('admin:login'))
 def add_sanpham(request):
     if request.method == 'POST':
         form = SanphamForm(request.POST)

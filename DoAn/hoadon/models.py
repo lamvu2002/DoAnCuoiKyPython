@@ -19,6 +19,9 @@ class Hoadon(BaseModel):
     trigia = models.DecimalField(db_column='TRIGIA', max_digits=19, decimal_places=4, blank=True,
                                  null=True)
 
+    def __str__(self):
+        return f"Số Hóa Đơn: {self.sohd}, Ngày Hóa Đơn: {self.nghd}, Mã Khách Hàng: {self.makh}, Mã Nhân Viên: {self.manv}, Trị Giá: {self.trigia}"
+
     class Meta:
         managed = False
         db_table = 'HOADON'

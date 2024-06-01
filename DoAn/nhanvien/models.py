@@ -17,6 +17,9 @@ class Nhanvien(BaseModel):
                             db_collation='Vietnamese_CI_AS')
     ngvl = models.DateTimeField(db_column='NGVL', blank=True, null=True)
 
+    def __str__(self):
+        return f"Mã Nhân Viên: {self.manv}, Họ Tên: {self.hoten}, Số Điện Thoại: {self.sodt}, Ngày Vào Làm: {self.ngvl}"
+
     class Meta:
         managed = False
         db_table = 'NHANVIEN'

@@ -21,6 +21,9 @@ class Sanpham(BaseModel):
     gia = models.DecimalField(db_column='GIA', max_digits=19, decimal_places=4, blank=True,
                               null=True)
 
+    def __str__(self):
+        return f"Mã Sản Phẩm: {self.masp}, Tên Sản PHẩm: {self.tensp}, Đơn Vị Tính: {self.dvt}, Giá: {self.gia}"
+    
     class Meta:
         managed = False
         db_table = 'SANPHAM'

@@ -3,10 +3,14 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .forms import HoadonForm, HoadonEditForm
 from django.db.models import Q
 from django.utils.timezone import localtime
+from django.urls import reverse_lazy
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout
 
 
-def index(request):
-    return render(request, 'index.html')
+def logout_view(request):
+    logout(request)
+    return redirect('/')
 
 
 def table_hoadon(request):
@@ -61,6 +65,7 @@ def table_hoadon(request):
     return render(request, 'table_hoadon.html', {'ds_hd': hd_list})
 
 
+@login_required(login_url=reverse_lazy('admin:login'))
 def edit_hoadon(request, sohd):
     hoadon = get_object_or_404(Hoadon, sohd=sohd)
 
@@ -75,6 +80,7 @@ def edit_hoadon(request, sohd):
     return render(request, 'edit_hoadon.html', {'form': form})
 
 
+@login_required(login_url=reverse_lazy('admin:login'))
 def delete_hoadon(request, sohd):
     hoadon = get_object_or_404(Hoadon, sohd=sohd)
 
@@ -85,6 +91,7 @@ def delete_hoadon(request, sohd):
     return render(request, 'delete_hoadon.html', {'hoadon': hoadon})
 
 
+@login_required(login_url=reverse_lazy('admin:login'))
 def add_hoadon(request):
     if request.method == 'POST':
         form = HoadonForm(request.POST)
@@ -97,6 +104,7 @@ def add_hoadon(request):
     return render(request, 'add_hoadon.html', {'form': form})
 
 
+@login_required(login_url=reverse_lazy('admin:login'))
 def tinh_tri_gia_hoadon(request):
     if request.method == 'POST':
         hoadons = Hoadon.objects.all()

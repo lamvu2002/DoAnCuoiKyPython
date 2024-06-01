@@ -3,6 +3,14 @@ from django.shortcuts import render, get_object_or_404, redirect
 from .forms import NhanvienForm, NhanvienEditForm
 from django.db.models import Q
 from django.utils.timezone import localtime
+from django.urls import reverse_lazy
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import logout
+
+
+def logout_view(request):
+    logout(request)
+    return redirect('/')
 
 
 def table_nhanvien(request):
@@ -28,6 +36,7 @@ def table_nhanvien(request):
     return render(request, 'table_nhanvien.html', {'ds_nv': nv_list, 'query': query})
 
 
+@login_required(login_url=reverse_lazy('admin:login'))
 def edit_nhanvien(request, manv):
     nhanvien = get_object_or_404(Nhanvien, manv=manv)
 
@@ -42,6 +51,7 @@ def edit_nhanvien(request, manv):
     return render(request, 'edit_nhanvien.html', {'form': form})
 
 
+@login_required(login_url=reverse_lazy('admin:login'))
 def delete_nhanvien(request, manv):
     nhanvien = get_object_or_404(Nhanvien, manv=manv)
 
@@ -52,6 +62,7 @@ def delete_nhanvien(request, manv):
     return render(request, 'delete_nhanvien.html', {'nhanvien': nhanvien})
 
 
+@login_required(login_url=reverse_lazy('admin:login'))
 def add_nhanvien(request):
     if request.method == 'POST':
         form = NhanvienForm(request.POST)

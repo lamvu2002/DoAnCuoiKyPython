@@ -12,8 +12,10 @@ class BaseModel(models.Model):
 class Cthd(BaseModel):
     sohd = models.ForeignKey('Hoadon', models.DO_NOTHING, db_column='SOHD')
     masp = models.ForeignKey('Sanpham', models.DO_NOTHING, db_column='MASP')
-    sl = models.IntegerField(db_column='SL', blank=True, null=True)
+    sl = models.IntegerField(db_column='SL', blank=False, null=False)
 
+    def __str__(self):
+        return f"Số Hóa Đơn: {self.sohd}, Mã Sản Phẩm: {self.masp}, Số Lượng: {self.sl}"
 
     class Meta:
         managed = False
