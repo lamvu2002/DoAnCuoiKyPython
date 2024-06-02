@@ -89,7 +89,6 @@ def delete_sanpham(request, masp):
     return render(request, 'delete_sanpham.html', {'sanpham': sanpham})
 
 
-@login_required(login_url=reverse_lazy('admin:login'))
 def add_sanpham(request):
     if request.method == 'POST':
         form = SanphamForm(request.POST)

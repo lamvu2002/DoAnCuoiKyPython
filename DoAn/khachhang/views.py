@@ -97,7 +97,6 @@ def delete_khachhang(request, makh):
     return render(request, 'delete_khachhang.html', {'khachhang': khachhang})
 
 
-@login_required(login_url=reverse_lazy('admin:login'))
 def add_khachhang(request):
     if request.method == 'POST':
         form = KhachhangForm(request.POST)

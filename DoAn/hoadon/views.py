@@ -91,7 +91,6 @@ def delete_hoadon(request, sohd):
     return render(request, 'delete_hoadon.html', {'hoadon': hoadon})
 
 
-@login_required(login_url=reverse_lazy('admin:login'))
 def add_hoadon(request):
     if request.method == 'POST':
         form = HoadonForm(request.POST)

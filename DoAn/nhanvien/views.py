@@ -62,7 +62,6 @@ def delete_nhanvien(request, manv):
     return render(request, 'delete_nhanvien.html', {'nhanvien': nhanvien})
 
 
-@login_required(login_url=reverse_lazy('admin:login'))
 def add_nhanvien(request):
     if request.method == 'POST':
         form = NhanvienForm(request.POST)

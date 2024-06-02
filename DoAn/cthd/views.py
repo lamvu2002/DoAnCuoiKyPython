@@ -89,7 +89,6 @@ def delete_cthd(request, sohd, masp):
     return render(request, 'delete_cthd.html', {'cthd': cthd})
 
 
-@login_required(login_url=reverse_lazy('admin:login'))
 def add_cthd(request):
     if request.method == 'POST':
         form = CthdForm(request.POST)
