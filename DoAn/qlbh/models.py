@@ -11,7 +11,7 @@ class BaseModel(models.Model):
 class Cthd(BaseModel):
     sohd = models.ForeignKey('Hoadon', models.DO_NOTHING, db_column='SOHD')
     masp = models.ForeignKey('Sanpham', models.DO_NOTHING, db_column='MASP')
-    sl = models.IntegerField(db_column='SL', blank=True, null=True)
+    sl = models.IntegerField(db_column='SL', blank=False, null=False)
 
     class Meta:
         managed = False
@@ -21,13 +21,13 @@ class Cthd(BaseModel):
 
 class Hoadon(BaseModel):
     sohd = models.IntegerField(db_column='SOHD', primary_key=True)
-    nghd = models.DateTimeField(db_column='NGHD', blank=True, null=True)
-    makh = models.ForeignKey('Khachhang', models.DO_NOTHING, db_column='MAKH', blank=True,
-                             null=True)
-    manv = models.ForeignKey('Nhanvien', models.DO_NOTHING, db_column='MANV', blank=True,
-                             null=True)
-    trigia = models.DecimalField(db_column='TRIGIA', max_digits=19, decimal_places=4, blank=True,
-                                 null=True)
+    nghd = models.DateTimeField(db_column='NGHD', blank=False, null=False)
+    makh = models.ForeignKey('Khachhang', models.DO_NOTHING, db_column='MAKH', blank=False,
+                             null=False)
+    manv = models.ForeignKey('Nhanvien', models.DO_NOTHING, db_column='MANV', blank=False,
+                             null=False)
+    trigia = models.DecimalField(db_column='TRIGIA', max_digits=19, decimal_places=4, blank=False,
+                                 null=False)
 
     class Meta:
         managed = False
@@ -39,16 +39,16 @@ class Khachhang(BaseModel):
                             db_collation='Vietnamese_CI_AS')
     hoten = models.CharField(db_column='HOTEN', max_length=40,
                              db_collation='Vietnamese_CI_AS')
-    dchi = models.CharField(db_column='DCHI', max_length=50, db_collation='Vietnamese_CI_AS', blank=True,
-                            null=True)
+    dchi = models.CharField(db_column='DCHI', max_length=50, db_collation='Vietnamese_CI_AS', blank=False,
+                            null=False)
     sodt = models.CharField(db_column='SODT', max_length=20,
                             db_collation='Vietnamese_CI_AS')
-    ngsinh = models.DateTimeField(db_column='NGSINH', blank=True, null=True)
-    doanhso = models.DecimalField(db_column='DOANHSO', max_digits=19, decimal_places=4, blank=True,
-                                  null=True)
-    ngdk = models.DateTimeField(db_column='NGDK', blank=True, null=True)
-    loaikh = models.CharField(db_column='LOAIKH', max_length=20, db_collation='Vietnamese_CI_AS', blank=True,
-                              null=True)
+    ngsinh = models.DateTimeField(db_column='NGSINH', blank=False, null=False)
+    doanhso = models.DecimalField(db_column='DOANHSO', max_digits=19, decimal_places=4, blank=False,
+                                  null=False)
+    ngdk = models.DateTimeField(db_column='NGDK', blank=False, null=False)
+    loaikh = models.CharField(db_column='LOAIKH', max_length=20, db_collation='Vietnamese_CI_AS', blank=False,
+                              null=False)
 
     class Meta:
         managed = False
@@ -60,16 +60,16 @@ class Khachhang1(BaseModel):
                             db_collation='Vietnamese_CI_AS')
     hoten = models.CharField(db_column='HOTEN', max_length=40,
                              db_collation='Vietnamese_CI_AS')
-    dchi = models.CharField(db_column='DCHI', max_length=50, db_collation='Vietnamese_CI_AS', blank=True,
-                            null=True)
+    dchi = models.CharField(db_column='DCHI', max_length=50, db_collation='Vietnamese_CI_AS', blank=False,
+                            null=False)
     sodt = models.CharField(db_column='SODT', max_length=20,
                             db_collation='Vietnamese_CI_AS')
-    ngsinh = models.DateTimeField(db_column='NGSINH', blank=True, null=True)
-    doanhso = models.DecimalField(db_column='DOANHSO', max_digits=19, decimal_places=4, blank=True,
-                                  null=True)
-    ngdk = models.DateTimeField(db_column='NGDK', blank=True, null=True)
-    loaikh = models.CharField(db_column='LOAIKH', max_length=20, db_collation='Vietnamese_CI_AS', blank=True,
-                              null=True)
+    ngsinh = models.DateTimeField(db_column='NGSINH', blank=False, null=False)
+    doanhso = models.DecimalField(db_column='DOANHSO', max_digits=19, decimal_places=4, blank=False,
+                                  null=False)
+    ngdk = models.DateTimeField(db_column='NGDK', blank=False, null=False)
+    loaikh = models.CharField(db_column='LOAIKH', max_length=20, db_collation='Vietnamese_CI_AS', blank=False,
+                              null=False)
 
     class Meta:
         managed = False
@@ -83,7 +83,7 @@ class Nhanvien(BaseModel):
                              db_collation='Vietnamese_CI_AS')
     sodt = models.CharField(db_column='SODT', max_length=20,
                             db_collation='Vietnamese_CI_AS')
-    ngvl = models.DateTimeField(db_column='NGVL', blank=True, null=True)
+    ngvl = models.DateTimeField(db_column='NGVL', blank=False, null=False)
 
     class Meta:
         managed = False
@@ -93,14 +93,14 @@ class Nhanvien(BaseModel):
 class Sanpham(BaseModel):
     masp = models.CharField(db_column='MASP', primary_key=True, max_length=4,
                             db_collation='Vietnamese_CI_AS')
-    tensp = models.CharField(db_column='TENSP', max_length=40, db_collation='Vietnamese_CI_AS', blank=True,
-                             null=True)
-    dvt = models.CharField(db_column='DVT', max_length=20, db_collation='Vietnamese_CI_AS', blank=True,
-                           null=True)
-    nuocsx = models.CharField(db_column='NUOCSX', max_length=40, db_collation='Vietnamese_CI_AS', blank=True,
-                              null=True)
-    gia = models.DecimalField(db_column='GIA', max_digits=19, decimal_places=4, blank=True,
-                              null=True)
+    tensp = models.CharField(db_column='TENSP', max_length=40, db_collation='Vietnamese_CI_AS', blank=False,
+                             null=False)
+    dvt = models.CharField(db_column='DVT', max_length=20, db_collation='Vietnamese_CI_AS', blank=False,
+                           null=False)
+    nuocsx = models.CharField(db_column='NUOCSX', max_length=40, db_collation='Vietnamese_CI_AS', blank=False,
+                              null=False)
+    gia = models.DecimalField(db_column='GIA', max_digits=19, decimal_places=4, blank=False,
+                              null=False)
 
     class Meta:
         managed = False
@@ -110,14 +110,14 @@ class Sanpham(BaseModel):
 class Sanpham1(BaseModel):
     masp = models.CharField(db_column='MASP', max_length=4,
                             db_collation='Vietnamese_CI_AS')
-    tensp = models.CharField(db_column='TENSP', max_length=40, db_collation='Vietnamese_CI_AS', blank=True,
-                             null=True)
-    dvt = models.CharField(db_column='DVT', max_length=20, db_collation='Vietnamese_CI_AS', blank=True,
-                           null=True)
-    nuocsx = models.CharField(db_column='NUOCSX', max_length=40, db_collation='Vietnamese_CI_AS', blank=True,
-                              null=True)
-    gia = models.DecimalField(db_column='GIA', max_digits=19, decimal_places=4, blank=True,
-                              null=True)
+    tensp = models.CharField(db_column='TENSP', max_length=40, db_collation='Vietnamese_CI_AS', blank=False,
+                             null=False)
+    dvt = models.CharField(db_column='DVT', max_length=20, db_collation='Vietnamese_CI_AS', blank=False,
+                           null=False)
+    nuocsx = models.CharField(db_column='NUOCSX', max_length=40, db_collation='Vietnamese_CI_AS', blank=False,
+                              null=False)
+    gia = models.DecimalField(db_column='GIA', max_digits=19, decimal_places=4, blank=False,
+                              null=False)
 
     class Meta:
         managed = False
@@ -156,7 +156,7 @@ class AuthPermission(BaseModel):
 
 class AuthUser(BaseModel):
     password = models.CharField(max_length=128, db_collation='Vietnamese_CI_AS')
-    last_login = models.DateTimeField(blank=True, null=True)
+    last_login = models.DateTimeField(blank=False, null=False)
     is_superuser = models.BooleanField()
     username = models.CharField(unique=True, max_length=150, db_collation='Vietnamese_CI_AS')
     first_name = models.CharField(max_length=150, db_collation='Vietnamese_CI_AS')
@@ -195,11 +195,11 @@ class AuthUserUserPermissions(BaseModel):
 
 class DjangoAdminLog(BaseModel):
     action_time = models.DateTimeField()
-    object_id = models.TextField(db_collation='Vietnamese_CI_AS', blank=True, null=True)
+    object_id = models.TextField(db_collation='Vietnamese_CI_AS', blank=False, null=False)
     object_repr = models.CharField(max_length=200, db_collation='Vietnamese_CI_AS')
     action_flag = models.SmallIntegerField()
     change_message = models.TextField(db_collation='Vietnamese_CI_AS')
-    content_type = models.ForeignKey('DjangoContentType', models.DO_NOTHING, blank=True, null=True)
+    content_type = models.ForeignKey('DjangoContentType', models.DO_NOTHING, blank=False, null=False)
     user = models.ForeignKey(AuthUser, models.DO_NOTHING)
 
     class Meta:
@@ -264,11 +264,11 @@ class QlbhHoadon(BaseModel):
 class QlbhKhachhang(BaseModel):
     makh = models.CharField(primary_key=True, max_length=4, db_collation='Vietnamese_CI_AS')
     hoten = models.CharField(max_length=40, db_collation='Vietnamese_CI_AS')
-    dchi = models.CharField(max_length=50, db_collation='Vietnamese_CI_AS', blank=True, null=True)
+    dchi = models.CharField(max_length=50, db_collation='Vietnamese_CI_AS', blank=False, null=False)
     sodt = models.CharField(max_length=20, db_collation='Vietnamese_CI_AS')
-    ngsinh = models.DateTimeField(blank=True, null=True)
-    doanhso = models.DecimalField(max_digits=19, decimal_places=2, blank=True, null=True)
-    ngdk = models.DateTimeField(blank=True, null=True)
+    ngsinh = models.DateTimeField(blank=False, null=False)
+    doanhso = models.DecimalField(max_digits=19, decimal_places=2, blank=False, null=False)
+    ngdk = models.DateTimeField(blank=False, null=False)
 
     class Meta:
         managed = False
@@ -279,7 +279,7 @@ class QlbhNhanvien(BaseModel):
     manv = models.CharField(primary_key=True, max_length=4, db_collation='Vietnamese_CI_AS')
     hoten = models.CharField(max_length=40, db_collation='Vietnamese_CI_AS')
     sodt = models.CharField(max_length=20, db_collation='Vietnamese_CI_AS')
-    ngvl = models.DateTimeField(blank=True, null=True)
+    ngvl = models.DateTimeField(blank=False, null=False)
 
     class Meta:
         managed = False
