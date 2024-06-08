@@ -12,8 +12,8 @@ class BaseModel(models.Model):
 class Hoadon(BaseModel):
     sohd = models.IntegerField(db_column='SOHD', primary_key=True)
     nghd = models.DateTimeField(db_column='NGHD', blank=False, null=False)
-    makh = models.ForeignKey('Khachhang', models.DO_NOTHING, db_column='MAKH', blank=False,
-                             null=False)
+    makh = models.ForeignKey('Khachhang', models.DO_NOTHING, db_column='MAKH', blank=True,
+                             null=True)
     manv = models.ForeignKey('Nhanvien', models.DO_NOTHING, db_column='MANV', blank=False,
                              null=False)
     trigia = models.DecimalField(db_column='TRIGIA', max_digits=19, decimal_places=4, blank=False,
