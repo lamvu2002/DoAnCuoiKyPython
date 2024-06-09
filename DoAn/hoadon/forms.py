@@ -1,6 +1,7 @@
 from django import forms
 from .models import Khachhang, Nhanvien, Hoadon
 from django.utils import timezone
+from django.core.validators import MinValueValidator
 
 
 class HoadonForm(forms.ModelForm):
@@ -11,6 +12,10 @@ class HoadonForm(forms.ModelForm):
         required=False,
     )
     manv = forms.ModelChoiceField(queryset=Nhanvien.objects.all(), empty_label=None, label='Mã Nhân Viên')
+    sohd = forms.IntegerField(
+        label='Số Hóa Đơn',
+        validators=[MinValueValidator(1, 'Số hóa đơn phải lớn hơn 0.')]
+    )
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -34,6 +39,10 @@ class HoadonEditForm(forms.ModelForm):
         empty_label='None',
         label='Mã Khách Hàng',
         required=False,
+    )
+    sohd = forms.IntegerField(
+        label='Số Hóa Đơn',
+        validators=[MinValueValidator(1, 'Số hóa đơn phải lớn hơn 0.')]
     )
     manv = forms.ModelChoiceField(queryset=Nhanvien.objects.all(), empty_label=None, label='Mã Nhân Viên')
 

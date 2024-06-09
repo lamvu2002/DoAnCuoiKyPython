@@ -36,7 +36,7 @@ class SanphamEditForm(forms.ModelForm):
         ('chuc', 'chuc'),
     ]
     dvt = forms.ChoiceField(choices=DVT_CHOICES, label='Đơn Vị Tính')
-    
+
     class Meta:
         model = Sanpham
         fields = '__all__'
