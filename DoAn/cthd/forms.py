@@ -7,7 +7,7 @@ from .models import Sanpham, Hoadon, Cthd
 class CthdForm(forms.ModelForm):
     sohd = forms.ModelChoiceField(queryset=Hoadon.objects.all(), empty_label=None, label='Số Hóa Đơn')
     masp = forms.ModelChoiceField(queryset=Sanpham.objects.all(), empty_label=None, label='Mã Sản Phẩm')
-    sl = forms.IntegerField(validators=[MinValueValidator(1)], label='Số Lượng')
+    sl = forms.IntegerField(validators=[MinValueValidator(1, 'Số lượng phải lớn hơn 0.')], label='Số Lượng')
 
     class Meta:
         model = Cthd
@@ -21,7 +21,7 @@ class CthdForm(forms.ModelForm):
 
 class CthdEditForm(forms.ModelForm):
     masp = forms.ModelChoiceField(queryset=Sanpham.objects.all(), empty_label=None, label='Mã Sản Phẩm')
-    sl = forms.IntegerField(validators=[MinValueValidator(1)], label='Số Lượng')
+    sl = forms.IntegerField(validators=[MinValueValidator(1, 'Số lượng phải lớn hơn 0.')], label='Số Lượng')
 
     class Meta:
         model = Cthd

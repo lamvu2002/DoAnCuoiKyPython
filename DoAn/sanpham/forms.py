@@ -8,11 +8,11 @@ from .models import Sanpham
 
 class SanphamForm(forms.ModelForm):
     DVT_CHOICES = [
-        ('cay', 'cay'),
-        ('hop', 'hop'),
-        ('cai', 'cai'),
-        ('quyen', 'quyen'),
-        ('chuc', 'chuc'),
+        ('CAY', 'CAY'),
+        ('HOP', 'HOP'),
+        ('CAI', 'CAI'),
+        ('QUYEN', 'QUYEN'),
+        ('CHUC', 'CHUC'),
     ]
     dvt = forms.ChoiceField(choices=DVT_CHOICES, label='Đơn Vị Tính')
 
@@ -29,11 +29,11 @@ class SanphamForm(forms.ModelForm):
 
 class SanphamEditForm(forms.ModelForm):
     DVT_CHOICES = [
-        ('cay', 'cay'),
-        ('hop', 'hop'),
-        ('cai', 'cai'),
-        ('quyen', 'quyen'),
-        ('chuc', 'chuc'),
+        ('CAY', 'CAY'),
+        ('HOP', 'HOP'),
+        ('CAI', 'CAI'),
+        ('QUYEN', 'QUYEN'),
+        ('CHUC', 'CHUC'),
     ]
     dvt = forms.ChoiceField(choices=DVT_CHOICES, label='Đơn Vị Tính')
 
