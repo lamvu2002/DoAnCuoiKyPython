@@ -1,6 +1,7 @@
 from django import forms
 from .models import Khachhang
 from django.utils import timezone
+from django.core.validators import RegexValidator
 
 
 class KhachhangForm(forms.ModelForm):
@@ -12,6 +13,14 @@ class KhachhangForm(forms.ModelForm):
         self.fields['loaikh'].widget.attrs['readonly'] = True
         self.fields['doanhso'].initial = 0
         self.fields['doanhso'].widget.attrs['readonly'] = True
+
+    sodt = forms.CharField(
+        label='Số Điện Thoại',
+        validators=[
+            RegexValidator(r'^\d+$', 'Số điện thoại chỉ được chứa các chữ số 0-9.')
+        ]
+    )
+
     class Meta:
         model = Khachhang
         fields = '__all__'
@@ -32,6 +41,13 @@ class KhachhangEditForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['ngdk'].initial = timezone.now()
         self.fields['ngdk'].widget.attrs['readonly'] = True
+
+    sodt = forms.CharField(
+        label='Số Điện Thoại',
+        validators=[
+            RegexValidator(r'^\d+$', 'Số điện thoại chỉ được chứa các chữ số 0-9.')
+        ]
+    )
 
     class Meta:
         model = Khachhang

@@ -1,9 +1,6 @@
 from django import forms
 from .models import Sanpham
-
-
-from django import forms
-from .models import Sanpham
+from django.core.validators import MinValueValidator
 
 
 class SanphamForm(forms.ModelForm):
@@ -15,7 +12,10 @@ class SanphamForm(forms.ModelForm):
         ('CHUC', 'CHUC'),
     ]
     dvt = forms.ChoiceField(choices=DVT_CHOICES, label='Đơn Vị Tính')
-
+    gia = forms.DecimalField(
+        label='Giá',
+        validators=[MinValueValidator(501, 'Giá phải lớn hơn 500.')]
+    )
     class Meta:
         model = Sanpham
         fields = '__all__'
@@ -36,6 +36,10 @@ class SanphamEditForm(forms.ModelForm):
         ('CHUC', 'CHUC'),
     ]
     dvt = forms.ChoiceField(choices=DVT_CHOICES, label='Đơn Vị Tính')
+    gia = forms.DecimalField(
+        label='Giá',
+        validators=[MinValueValidator(501, 'Giá phải lớn hơn 500.')]
+    )
 
     class Meta:
         model = Sanpham
