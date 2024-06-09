@@ -8,10 +8,14 @@ class KhachhangForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['ngdk'].initial = timezone.now()
         self.fields['ngdk'].widget.attrs['readonly'] = True
+        self.fields['loaikh'].initial = "CHUA XEP LOAI"
+        self.fields['loaikh'].widget.attrs['readonly'] = True
+        self.fields['doanhso'].initial = 0
+        self.fields['doanhso'].widget.attrs['readonly'] = True
     class Meta:
         model = Khachhang
         fields = '__all__'
-        exclude = ['loaikh', 'doanhso']
+
         labels = {
             'makh': 'Mã Khách Hàng',
             'hoten': 'Họ Tên',
@@ -28,7 +32,6 @@ class KhachhangEditForm(forms.ModelForm):
         super().__init__(*args, **kwargs)
         self.fields['ngdk'].initial = timezone.now()
         self.fields['ngdk'].widget.attrs['readonly'] = True
-
 
     class Meta:
         model = Khachhang

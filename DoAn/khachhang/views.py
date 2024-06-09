@@ -132,7 +132,7 @@ def set_loai_khachhang(request):
             khachhang.doanhso = doanh_so
             khachhang.save()
 
-            if (khachhang.ngdk < timezone.datetime(2007, 1, 1,
+            if (khachhang.ngdk <= timezone.datetime(2007, 1, 1,
                                                    tzinfo=khachhang.ngdk.tzinfo) and khachhang.doanhso >= 10000000) or (
                     khachhang.ngdk > timezone.datetime(2007, 1, 1,
                                                        tzinfo=khachhang.ngdk.tzinfo) and khachhang.doanhso >= 2000000):
