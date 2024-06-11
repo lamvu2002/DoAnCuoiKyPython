@@ -25,4 +25,5 @@ urlpatterns = [
     path("", include("hoadon.urls")),
     path("", include("cthd.urls")),
     path("admin/", admin.site.urls),
+    path("api/", include('API.urls'))
 ]
