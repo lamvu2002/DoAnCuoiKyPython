@@ -8,12 +8,52 @@ from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework import status
 from rest_framework.response import Response
 from django.utils import timezone
+from django.db.models import Q
 
 
+@csrf_exempt
 @api_view(['GET', 'POST'])
 def KhachhangGetAPI(request):
     if request.method == "GET":
-        khachhangs = Khachhang.objects.all()
+        query = request.query_params.get('search', None)
+        if query:
+            if query.startswith('>='):
+                try:
+                    value = float(query[2:])
+                    khachhangs = Khachhang.objects.filter(doanhso__gte=value)
+                except ValueError:
+                    khachhangs = Khachhang.objects.none()
+            elif query.startswith('>'):
+                try:
+                    value = float(query[1:])
+                    khachhangs = Khachhang.objects.filter(doanhso__gt=value)
+                except ValueError:
+                    khachhangs = Khachhang.objects.none()
+            elif query.startswith('<='):
+                try:
+                    value = float(query[2:])
+                    khachhangs = Khachhang.objects.filter(doanhso__lte=value)
+                except ValueError:
+                    khachhangs = Khachhang.objects.none()
+            elif query.startswith('<'):
+                try:
+                    value = float(query[1:])
+                    khachhangs = Khachhang.objects.filter(doanhso__lt=value)
+                except ValueError:
+                    khachhangs = Khachhang.objects.none()
+            else:
+                khachhangs = Khachhang.objects.filter(
+                    Q(makh__icontains=query) |
+                    Q(hoten__icontains=query) |
+                    Q(dchi__icontains=query) |
+                    Q(sodt__icontains=query) |
+                    Q(ngsinh__icontains=query) |
+                    Q(loaikh__icontains=query)|
+                    Q(doanhso__icontains=query) |
+                    Q(ngdk__icontains=query)
+                )
+        else:
+            khachhangs = Khachhang.objects.all()
         khachhang_serializer = KhachhangSerializer(khachhangs, many=True)
         return Response(khachhang_serializer.data, status=status.HTTP_200_OK)
     elif request.method == "POST":
@@ -46,11 +86,17 @@ def KhachhangAPI(request, makh=""):
         except Khachhang.DoesNotExist:
             return Response("Khách hàng không tồn tại", status=status.HTTP_404_NOT_FOUND)
 
-
+@csrf_exempt
 @api_view(['GET', 'POST'])
 def NhanvienGetAPI(request):
     if request.method == "GET":
-        nhanviens = Nhanvien.objects.all()
+        query = request.query_params.get('search', None)
+        nhanviens = Nhanvien.objects.filter(
+            Q(manv__icontains=query) |
+            Q(hoten__icontains=query) |
+            Q(sodt__icontains=query) |
+            Q(ngvl__icontains=query)
+        )
         nhanvien_serializer = NhanvienSerializer(nhanviens, many=True)
         return Response(nhanvien_serializer.data, status=status.HTTP_200_OK)
     elif request.method == "POST":
@@ -86,11 +132,45 @@ def NhanvienAPI(request, manv=""):
         except Nhanvien.DoesNotExist:
             return Response("Nhân viên không tồn tại", status=status.HTTP_404_NOT_FOUND)
 
-
+@csrf_exempt
 @api_view(['GET', 'POST'])
 def SanphamGetAPI(request):
     if request.method == 'GET':
-        sanphams = Sanpham.objects.all()
+        query = request.query_params.get('search', None)
+        if query:
+            if query.startswith('>='):
+                try:
+                    value = float(query[2:])
+                    sanphams = Sanpham.objects.filter(gia__gte=value)
+                except ValueError:
+                    sanphams = Sanpham.objects.none()
+            elif query.startswith('>'):
+                try:
+                    value = float(query[1:])
+                    sanphams = Sanpham.objects.filter(gia__gt=value)
+                except ValueError:
+                    sanphams = Sanpham.objects.none()
+            elif query.startswith('<='):
+                try:
+                    value = float(query[2:])
+                    sanphams = Sanpham.objects.filter(gia__lte=value)
+                except ValueError:
+                    sanphams = Sanpham.objects.none()
+            elif query.startswith('<'):
+                try:
+                    value = float(query[1:])
+                    sanphams = Sanpham.objects.filter(gia__lt=value)
+                except ValueError:
+                    sanphams = Sanpham.objects.none()
+            else:
+                sanphams = Sanpham.objects.filter(
+                    Q(masp__icontains=query) |
+                    Q(tensp__icontains=query) |
+                    Q(dvt__icontains=query) |
+                    Q(nuocsx__icontains=query)
+                )
+        else:
+            sanphams = Sanpham.objects.all()
         sanpham_serializer = SanphamSerializer(sanphams, many=True)
         return Response(sanpham_serializer.data, status=status.HTTP_200_OK)
     elif request.method == "POST":
@@ -126,11 +206,46 @@ def SanphamAPI(request, masp=""):
         except Sanpham.DoesNotExist:
             return Response("Sản phẩm không tồn tại", status=status.HTTP_404_NOT_FOUND)
 
-
+@csrf_exempt
 @api_view(['GET', 'POST'])
 def HoadonGetAPI(request):
     if request.method == 'GET':
-        hoadons = Hoadon.objects.all()
+        query = request.query_params.get('search', None)
+        if query:
+            if query.startswith('>='):
+                try:
+                    value = float(query[2:])
+                    hoadons = Hoadon.objects.filter(trigia__gte=value)
+                except ValueError:
+                    hoadons = Hoadon.objects.none()
+            elif query.startswith('>'):
+                try:
+                    value = float(query[1:])
+                    hoadons = Hoadon.objects.filter(trigia__gt=value)
+                except ValueError:
+                    hoadons = Hoadon.objects.none()
+            elif query.startswith('<='):
+                try:
+                    value = float(query[2:])
+                    hoadons = Hoadon.objects.filter(trigia__lte=value)
+                except ValueError:
+                    hoadons = Hoadon.objects.none()
+            elif query.startswith('<'):
+                try:
+                    value = float(query[1:])
+                    hoadons = Hoadon.objects.filter(trigia__lt=value)
+                except ValueError:
+                    hoadons = Hoadon.objects.none()
+            else:
+                hoadons = Hoadon.objects.filter(
+                    Q(sohd__icontains=query) |
+                    Q(nghd__icontains=query) |
+                    Q(makh__makh__icontains=query) |
+                    Q(manv__manv__icontains=query) |
+                    Q(trigia__icontains=query)
+                )
+        else:
+            hoadons = Hoadon.objects.all()
         hoadon_serializer = HoadonSerializer(hoadons, many=True)
         return Response(hoadon_serializer.data, status=status.HTTP_200_OK)
     elif request.method == "POST":
@@ -166,11 +281,44 @@ def HoadonAPI(request, sohd=0):
         except Hoadon.DoesNotExist:
             return Response("Hóa đơn không tồn tại", status=status.HTTP_404_NOT_FOUND)
 
-
+@csrf_exempt
 @api_view(['GET', 'POST'])
 def CthdGetAPI(request):
     if request.method == 'GET':
-        cthds = Cthd.objects.all()
+        query = request.query_params.get('search', None)
+        if query:
+            if query.startswith('>='):
+                try:
+                    value = float(query[2:])
+                    cthds = Cthd.objects.filter(sl__gte=value)
+                except ValueError:
+                    cthds = Cthd.objects.none()
+            elif query.startswith('>'):
+                try:
+                    value = float(query[1:])
+                    cthds = Cthd.objects.filter(sl__gt=value)
+                except ValueError:
+                    cthds = Cthd.objects.none()
+            elif query.startswith('<='):
+                try:
+                    value = float(query[2:])
+                    cthds = Cthd.objects.filter(sl__lte=value)
+                except ValueError:
+                    cthds = Cthd.objects.none()
+            elif query.startswith('<'):
+                try:
+                    value = float(query[1:])
+                    cthds = Cthd.objects.filter(sl__lt=value)
+                except ValueError:
+                    cthds = Cthd.objects.none()
+            else:
+                cthds = Cthd.objects.filter(
+                    Q(sohd__sohd__icontains=query) |
+                    Q(masp__masp__icontains=query) |
+                    Q(sl__icontains=query)
+                )
+        else:
+            cthds = Cthd.objects.all()
         cthd_serializer = CthdSerializer(cthds, many=True)
         return Response(cthd_serializer.data, status=status.HTTP_200_OK)
     elif request.method == "POST":
