@@ -7,6 +7,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework import status
 from rest_framework.response import Response
+from django.utils import timezone
 
 
 @api_view(['GET', 'POST'])
@@ -140,6 +141,7 @@ def HoadonGetAPI(request):
             return Response("Thêm thành công", status=status.HTTP_201_CREATED)
         return Response("Thêm thất bại", status=status.HTTP_400_BAD_REQUEST)
 
+
 @csrf_exempt
 @api_view(['PUT', 'DELETE'])
 @authentication_classes([JWTAuthentication])
@@ -151,7 +153,7 @@ def HoadonAPI(request, sohd=0):
             hoadon = Hoadon.objects.get(sohd=hoadon_data['sohd'])
             hoadon_serializer = HoadonSerializer(hoadon, data=hoadon_data)
             if hoadon_serializer.is_valid():
-                hoadon_serializer.save()
+                Hoadon.objects.filter(sohd=hoadon_data['sohd']).update(**hoadon_serializer.validated_data)
                 return Response("Cập nhật thành công", status=status.HTTP_200_OK)
             return Response("Cập nhật thất bại", status=status.HTTP_400_BAD_REQUEST)
         except Hoadon.DoesNotExist:
@@ -203,3 +205,75 @@ def CthdAPI(request, id=0):
             return Response("Xóa thành công", status=status.HTTP_204_NO_CONTENT)
         except Cthd.DoesNotExist:
             return Response("Chi tiết hóa đơn không tồn tại", status=status.HTTP_404_NOT_FOUND)
+
+
+@csrf_exempt
+@api_view(['PATCH'])
+@authentication_classes([JWTAuthentication])
+@permission_classes([IsAuthenticated])
+def tinh_tri_gia_hoadon(request):
+    if request.method == 'PATCH':
+        hoadons = Hoadon.objects.all()
+        for hoadon in hoadons:
+            cthds = Cthd.objects.filter(sohd=hoadon.sohd)
+
+            total_trigia = 0
+            for cthd in cthds:
+                cthd_trigia = cthd.sl * cthd.masp.gia
+                total_trigia += cthd_trigia
+
+            hoadon.trigia = total_trigia
+            hoadon_serializer = HoadonSerializer(hoadon, data={'trigia': total_trigia}, partial=True)
+            if hoadon_serializer.is_valid():
+                Hoadon.objects.filter(sohd=hoadon.sohd).update(**hoadon_serializer.validated_data)
+            else:
+                return Response(hoadon_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        return Response("Cập nhật giá trị thành công", status=status.HTTP_200_OK)
+
+    return Response("Phương thức không được hỗ trợ", status=status.HTTP_405_METHOD_NOT_ALLOWED)
+
+
+@csrf_exempt
+@api_view(['PATCH'])
+@authentication_classes([JWTAuthentication])
+@permission_classes([IsAuthenticated])
+def set_loai_khachhang(request):
+    if request.method == 'PATCH':
+        khachhangs = Khachhang.objects.all()
+        for khachhang in khachhangs:
+            doanh_so = 0
+            hoadons = Hoadon.objects.filter(makh=khachhang.makh)
+            for hoadon in hoadons:
+                cthds = Cthd.objects.filter(sohd=hoadon.sohd)
+
+                total_trigia = 0
+                for cthd in cthds:
+                    cthd_trigia = cthd.sl * cthd.masp.gia
+                    total_trigia += cthd_trigia
+
+                hoadon.trigia = total_trigia
+                doanh_so += total_trigia
+                Hoadon.objects.filter(sohd=hoadon.sohd).update(trigia=total_trigia)
+
+            khachhang.doanhso = doanh_so
+            khachhang_serializer = KhachhangSerializer(khachhang, data={'doanhso': doanh_so}, partial=True)
+            if khachhang_serializer.is_valid():
+                khachhang_serializer.save()
+            else:
+                return Response(khachhang_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+            if (khachhang.ngdk <= timezone.datetime(2007, 1, 1, tzinfo=khachhang.ngdk.tzinfo) and khachhang.doanhso >= 10000000) or (
+                    khachhang.ngdk > timezone.datetime(2007, 1, 1, tzinfo=khachhang.ngdk.tzinfo) and khachhang.doanhso >= 2000000):
+                khachhang.loaikh = 'VIP'
+            else:
+                khachhang.loaikh = 'THUONG'
+            khachhang_serializer = KhachhangSerializer(khachhang, data={'loaikh': khachhang.loaikh}, partial=True)
+            if khachhang_serializer.is_valid():
+                khachhang_serializer.save()
+            else:
+                return Response(khachhang_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        return Response("Cập nhật loại khách hàng thành công", status=status.HTTP_200_OK)
+
+    return Response("Phương thức không được hỗ trợ", status=status.HTTP_405_METHOD_NOT_ALLOWED)
