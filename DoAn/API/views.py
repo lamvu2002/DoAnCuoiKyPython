@@ -48,9 +48,9 @@ def KhachhangGetAPI(request):
                     Q(dchi__icontains=query) |
                     Q(sodt__icontains=query) |
                     Q(ngsinh__icontains=query) |
-                    Q(loaikh__icontains=query)|
                     Q(doanhso__icontains=query) |
-                    Q(ngdk__icontains=query)
+                    Q(ngdk__icontains=query) |
+                    Q(loaikh__icontains=query)
                 )
         else:
             khachhangs = Khachhang.objects.all()
