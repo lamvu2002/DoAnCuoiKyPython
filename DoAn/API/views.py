@@ -91,12 +91,15 @@ def KhachhangAPI(request, makh=""):
 def NhanvienGetAPI(request):
     if request.method == "GET":
         query = request.query_params.get('search', None)
-        nhanviens = Nhanvien.objects.filter(
-            Q(manv__icontains=query) |
-            Q(hoten__icontains=query) |
-            Q(sodt__icontains=query) |
-            Q(ngvl__icontains=query)
-        )
+        if query:
+            nhanviens = Nhanvien.objects.filter(
+                Q(manv__icontains=query) |
+                Q(hoten__icontains=query) |
+                Q(sodt__icontains=query) |
+                Q(ngvl__icontains=query)
+            )
+        else:
+            nhanviens = Nhanvien.objects.all()
         nhanvien_serializer = NhanvienSerializer(nhanviens, many=True)
         return Response(nhanvien_serializer.data, status=status.HTTP_200_OK)
     elif request.method == "POST":
